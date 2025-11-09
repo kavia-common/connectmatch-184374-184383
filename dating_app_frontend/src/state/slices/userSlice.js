@@ -6,7 +6,7 @@ export const initialUserState = {
   me: null,          // current user object
   loading: false,    // loading status for profile fetch/update
   error: null,       // string or object with error details
-  onboardingDone: false, // example UI flag
+  onboardingDone: false, // deprecated UI flag (kept for compatibility); prefer me.onboarded
 };
 
 // Action type constants

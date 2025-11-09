@@ -57,11 +57,18 @@ export const messagesApi = {
   },
 };
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * usersApi - endpoints related to current and other users.
+ */
 export const usersApi = {
   /** Get current user profile */
   me() {
     return request('/api/users/me', { method: 'GET' });
+  },
+  /** Create or partially create the current user (optional, if backend supports POST). */
+  create(body) {
+    return request('/api/users/me', { method: 'POST', body });
   },
   /** Update current user profile */
   update(body) {
