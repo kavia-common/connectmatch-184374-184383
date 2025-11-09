@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import { Card, Button } from '../components/common';
 import SwipeDeck from '../features/swipe/SwipeDeck';
 import MatchesList from '../features/matches/MatchesList';
+import ConversationsList from '../features/messages/ConversationsList';
+import ChatWindow from '../features/messages/ChatWindow';
 
 /**
  * PUBLIC_INTERFACE
@@ -10,8 +12,8 @@ import MatchesList from '../features/matches/MatchesList';
  * Routes:
  * - "/" -> Swipe deck
  * - "/matches" -> Matches list
- * - "/messages" -> Conversations placeholder
- * - "/messages/:id" -> Chat placeholder
+ * - "/messages" -> Conversations list
+ * - "/messages/:id" -> Chat window
  * - "/profile" -> Profile placeholder
  * - "*" -> 404 Not Found
  */
@@ -20,38 +22,11 @@ export default function AppRouter() {
     <Routes>
       <Route path="/" element={<SwipeDeck />} />
       <Route path="/matches" element={<MatchesList />} />
-      <Route path="/messages" element={<MessagesPlaceholder />} />
-      <Route path="/messages/:id" element={<ChatPlaceholder />} />
+      <Route path="/messages" element={<ConversationsList />} />
+      <Route path="/messages/:id" element={<ChatWindow />} />
       <Route path="/profile" element={<ProfilePlaceholder />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
-  );
-}
-
-function MessagesPlaceholder() {
-  return (
-    <Card
-      title="Messages"
-      subtitle="Your recent conversations appear here."
-    >
-      <div style={{ display: 'flex', gap: 10 }}>
-        <Button variant="primary" iconLeft="message">New Message</Button>
-        <Button variant="ghost">Inbox Settings</Button>
-      </div>
-    </Card>
-  );
-}
-
-function ChatPlaceholder() {
-  return (
-    <Card
-      title="Chat"
-      subtitle="You’re viewing a conversation. Real-time chat coming soon."
-    >
-      <div style={{ display: 'flex', gap: 10 }}>
-        <Button variant="secondary" iconLeft="settings">Chat Settings</Button>
-      </div>
-    </Card>
   );
 }
 
