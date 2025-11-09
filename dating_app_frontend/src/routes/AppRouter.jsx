@@ -1,10 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Card, Button } from '../components/common';
+import { Card } from '../components/common';
 import SwipeDeck from '../features/swipe/SwipeDeck';
 import MatchesList from '../features/matches/MatchesList';
 import ConversationsList from '../features/messages/ConversationsList';
 import ChatWindow from '../features/messages/ChatWindow';
+import ProfileView from '../features/profile/ProfileView';
 
 /**
  * PUBLIC_INTERFACE
@@ -14,7 +15,7 @@ import ChatWindow from '../features/messages/ChatWindow';
  * - "/matches" -> Matches list
  * - "/messages" -> Conversations list
  * - "/messages/:id" -> Chat window
- * - "/profile" -> Profile placeholder
+ * - "/profile" -> Profile view
  * - "*" -> 404 Not Found
  */
 export default function AppRouter() {
@@ -24,23 +25,9 @@ export default function AppRouter() {
       <Route path="/matches" element={<MatchesList />} />
       <Route path="/messages" element={<ConversationsList />} />
       <Route path="/messages/:id" element={<ChatWindow />} />
-      <Route path="/profile" element={<ProfilePlaceholder />} />
+      <Route path="/profile" element={<ProfileView />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
-  );
-}
-
-function ProfilePlaceholder() {
-  return (
-    <Card
-      title="Your Profile"
-      subtitle="Manage your details, preferences, and settings."
-    >
-      <div style={{ display: 'flex', gap: 10 }}>
-        <Button variant="primary">Edit Profile</Button>
-        <Button variant="ghost">Preview</Button>
-      </div>
-    </Card>
   );
 }
 
