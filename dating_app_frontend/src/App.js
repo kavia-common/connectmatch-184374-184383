@@ -7,7 +7,13 @@ import { useUser } from './state/store';
 
 // PUBLIC_INTERFACE
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => {
+    try {
+      return sessionStorage.getItem('theme') || 'light';
+    } catch (_e) {
+      return 'light';
+    }
+  });
   const [userState, userActions] = useUser();
   const [onboardingOpen, setOnboardingOpen] = useState(false);
 

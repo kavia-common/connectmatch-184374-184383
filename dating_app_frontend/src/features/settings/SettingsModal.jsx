@@ -10,8 +10,8 @@ import { Modal, Button, Icon } from '../../components/common';
  * - onClose: () => void
  *
  * Behavior:
- * - Reads current theme from document.documentElement[data-theme]
- * - Toggles light/dark theme and persists to sessionStorage for this session
+ * - Reads current theme from document.documentElement[data-theme] or sessionStorage
+ * - Toggles light/dark theme and persists to sessionStorage
  * - Provides mock notification toggles (email, push, in-app)
  * - Accessible: focus management via Modal, labeled switches, and ARIA attributes
  */
@@ -22,10 +22,14 @@ export default function SettingsModal({ open, onClose }) {
   const [notifyInApp, setNotifyInApp] = useState(true);
   const focusRef = useRef(null);
 
-  // Initialize theme from DOM attribute
+  // Initialize theme from storage or DOM attribute
   useEffect(() => {
     if (!open) return;
-    const curr = document.documentElement.getAttribute('data-theme') || 'light';
+    let curr = 'light';
+    try {
+      curr = sessionStorage.getItem('theme') || curr;
+    } catch (_e) {}
+    curr = document.documentElement.getAttribute('data-theme') || curr;
     setTheme(curr);
   }, [open]);
 
@@ -79,7 +83,7 @@ export default function SettingsModal({ open, onClose }) {
 
       <section className="stg-section" aria-labelledby="stg-notify">
         <h3 id="stg-notify" className="stg-subtitle">Notifications</h3>
-        <div className="stg-row">
+        <div className="stg-row" role="group" aria-label="Email notifications">
           <div className="stg-row-main">
             <div className="stg-row-title">Email</div>
             <div className="stg-row-desc">Receive updates and match summaries by email.</div>
@@ -96,7 +100,7 @@ export default function SettingsModal({ open, onClose }) {
             </label>
           </div>
         </div>
-        <div className="stg-row">
+        <div className="stg-row" role="group" aria-label="Push notifications">
           <div className="stg-row-main">
             <div className="stg-row-title">Push</div>
             <div className="stg-row-desc">Get push notifications for new messages.</div>
@@ -113,7 +117,7 @@ export default function SettingsModal({ open, onClose }) {
             </label>
           </div>
         </div>
-        <div className="stg-row">
+        <div className="stg-row" role="group" aria-label="In-app notifications">
           <div className="stg-row-main">
             <div className="stg-row-title">In-app</div>
             <div className="stg-row-desc">Show in-app alerts and badges.</div>
