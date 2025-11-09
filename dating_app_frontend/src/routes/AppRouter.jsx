@@ -2,13 +2,14 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Card, Button } from '../components/common';
 import SwipeDeck from '../features/swipe/SwipeDeck';
+import MatchesList from '../features/matches/MatchesList';
 
 /**
  * PUBLIC_INTERFACE
  * AppRouter defines the main application routes.
  * Routes:
  * - "/" -> Swipe deck
- * - "/matches" -> Matches placeholder
+ * - "/matches" -> Matches list
  * - "/messages" -> Conversations placeholder
  * - "/messages/:id" -> Chat placeholder
  * - "/profile" -> Profile placeholder
@@ -18,26 +19,12 @@ export default function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<SwipeDeck />} />
-      <Route path="/matches" element={<MatchesPlaceholder />} />
+      <Route path="/matches" element={<MatchesList />} />
       <Route path="/messages" element={<MessagesPlaceholder />} />
       <Route path="/messages/:id" element={<ChatPlaceholder />} />
       <Route path="/profile" element={<ProfilePlaceholder />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
-  );
-}
-
-function MatchesPlaceholder() {
-  return (
-    <Card
-      title="Matches"
-      subtitle="See people you’ve matched with and start a conversation."
-    >
-      <div style={{ display: 'flex', gap: 10 }}>
-        <Button variant="primary" iconRight="arrow-right">View Matches</Button>
-        <Button variant="secondary">Filters</Button>
-      </div>
-    </Card>
   );
 }
 
