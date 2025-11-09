@@ -1,47 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import AppRouter from './routes/AppRouter';
+import NavBar from './components/navigation/NavBar';
 
 // PUBLIC_INTERFACE
 function App() {
   const [theme, setTheme] = useState('light');
 
-  // Effect to apply theme to document element
+  // Apply theme to document element so CSS variables can react
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   // PUBLIC_INTERFACE
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button 
-          className="theme-toggle" 
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-        >
-          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-        </button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Current theme: <strong>{theme}</strong>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="op-app">
+      <header className="op-header">
+        <div className="op-brand">
+          <div className="op-logo">🌊</div>
+          <div className="op-brand-text">
+            <span className="op-brand-title">ConnectMatch</span>
+            <span className="op-brand-subtitle">Ocean Professional</span>
+          </div>
+        </div>
+        <div className="op-header-actions">
+          <button
+            className="op-btn"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+          </button>
+        </div>
       </header>
+
+      <main className="op-main">
+        <AppRouter />
+      </main>
+
+      <NavBar />
+
+      {/* Portals for modals and overlays */}
+      <div id="modal-root" />
+      <div id="toast-root" />
     </div>
   );
 }
